@@ -27,3 +27,42 @@ Try connecting to port 23 <br>
 `telnet 127.0.0.1 23`
 #### Expected output:Connection refused/ Unable to connect
 
+### Step 6 : Allow SSH(port 22)
+`sudo ufw allow 22` <br>
+Check rules <br>
+`sudo ufw status numbered`
+#### We should be able to see: 
+`[ 4] 22 ALLOW IN Anywhere`
+#### This ensures SSH is accessible for management while Telnet remains blocked.
+
+### Step 7 : Test SSH
+`ssh local host`
+#### Issue I faced here is:
+`ssh: connect to host localhost port 22: Connection refused`
+#### Solution to the issue i faced:
+1. Check if ssh server is installed: <br>
+`sudo systemctl status ssh` <br>
+Upon using this command I could tell why my `ssh localhost` failed. <br>
+### Because
+1. By default, UFW rules allowed port 22, but my SSH daemon (sshd) has been configured to use port 3435.
+2. So connections to port 22 are refused because nothing is listening there.
+
+### Step 8 : Allow the correct SSH port in UFW
+`sudo ufw allow 3435` <br>
+Check rules: 
+`sudo ufw status numbered`
+
+### Step 9 : Test SSH on the correct port
+`ssh -p 3435 localhost`<br>
+This allowed connection
+
+### Step 10 : Clean up rules
+1. Check current firewall rules <br>
+`sudo ufw status numbered`
+2. Delete test rules <br>
+```sudo ufw delete 8   # 3435 (v6)
+sudo ufw delete 7   # 22 (v6)
+sudo ufw delete 6   # 23 (v6)
+sudo ufw delete 4   # 3435
+sudo ufw delete 3   # 22
+sudo ufw delete 2   # 23 ```
