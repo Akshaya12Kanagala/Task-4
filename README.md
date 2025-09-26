@@ -52,22 +52,30 @@ Upon using this command I could tell why my `ssh localhost` failed. <br>
 Check rules: 
 `sudo ufw status numbered`
 
-### Step 9 : Test SSH on the correct port
-`ssh -p 3435 localhost`<br>
+### Step 9: Test SSH on the correct port
+`ssh -p 3435 localhost`  
 This allowed connection
 
-### Step 10 : Clean up rules
-1. Check current firewall rules <br>
+### Step 10: Clean up rules
+1. Check current firewall rules  
 `sudo ufw status numbered`
-2. Delete test rules <br>
-```bash
+
+2. Delete test rules
+```
 sudo ufw delete 8   # 3435 (v6)
 sudo ufw delete 7   # 22 (v6)
 sudo ufw delete 6   # 23 (v6)
 sudo ufw delete 4   # 3435
 sudo ufw delete 3   # 22
 sudo ufw delete 2   # 23
-
-### Step 11 : Disable UFW completely:
-
+```
+### Step 11 : Disable UFW completely
+```
+sudo ufw disable
+sudo ufe reset          ( confirm with y when prompted)
+sudo ufw status verbose ( should show inactive)
+```
+1. `sudo ufw disable` → stopped the firewall completely and prevented it from starting on boot.
+2. `sudo ufw reset` → deleted all custom rules (including lab rules and any other added rules) and restored UFW to its factory defaults.
+3. `sudo ufw status verbose` → inactive confirms no firewall is running, so Ubuntu is back to a neutral state.
 
