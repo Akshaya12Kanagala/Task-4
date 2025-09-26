@@ -60,12 +60,13 @@ This allowed connection
 1. Check current firewall rules <br>
 `sudo ufw status numbered`
 2. Delete test rules <br>
-```sudo ufw delete 8   # 3435 (v6)
+```bash
+sudo ufw delete 8   # 3435 (v6)
 sudo ufw delete 7   # 22 (v6)
 sudo ufw delete 6   # 23 (v6)
 sudo ufw delete 4   # 3435
 sudo ufw delete 3   # 22
-sudo ufw delete 2   # 23```
+sudo ufw delete 2   # 23
 
 ### Step 11 : Disable UFW completely:
 
