@@ -1,5 +1,8 @@
 # Task-4 : Setup and Use a Firewall on Windows/Linux
 
+### Objective: Configure and test basic firewall rules to allow/ block traffic
+### Tools: UFW Ubuntu
+
 ### Step 1 : Check if UFW is installed
 `sudo ufw version` <br>
 If not installed <br>
